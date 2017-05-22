@@ -1,0 +1,18 @@
+{
+  "require": {
+    "exts/canister": "1.0.0-beta7",
+    "starchphp/starch": "^0.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mixten\\": "src",
+      "Tests\\": "tests"
+    },
+    "files": [
+      "functions.php"
+    ]
+  }
+}
