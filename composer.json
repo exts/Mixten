@@ -1,4 +1,6 @@
 {
+  "name": "exts/mixten",
+  "description": "PHP 7.1 microframework",
   "require": {
     "exts/canister": "1.0.0-beta7",
     "starchphp/starch": "^0.2.0"
