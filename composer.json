@@ -3,7 +3,7 @@
   "description": "PHP 7.1 microframework",
   "require": {
     "php": "^7.1",
-    "exts/canister": "1.0.0-beta7",
+    "exts/canister": "1.0.0-beta8",
     "starchphp/starch": "^0.2.0"
   },
   "require-dev": {
