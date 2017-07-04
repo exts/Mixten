@@ -140,8 +140,7 @@ class Route
      */
     public function addMiddleware($middleware)
     {
-        $name = $this->getName();
-        if(isset($name) && !in_array($middleware, $this->middleware)) {
+        if(!in_array($middleware, $this->middleware)) {
             $this->middleware[] = $middleware;
         }
     }
