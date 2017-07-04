@@ -67,7 +67,8 @@ final class Application
         $default_aliases = [
             StackInterface::class => Stack::class,
             InvokerInterface::class => Invoker::class,
-            EmitterInterface::class => SapiEmitter::class
+            EmitterInterface::class => SapiEmitter::class,
+            CanisterInterface::class => Canister::class,
         ];
 
         //loop through aliases
