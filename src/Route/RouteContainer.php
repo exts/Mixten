@@ -143,12 +143,12 @@ class RouteContainer
     }
 
     /**
-     * @return array|null
+     * @return Route|null
      */
-    public function getLastRoute() : ?array
+    public function getLastRoute() : ?Route
     {
         if(!empty($this->routes)) {
-            return $this->routes[count($this->routes) - 1];
+            return end($this->routes);
         }
 
         return null;
