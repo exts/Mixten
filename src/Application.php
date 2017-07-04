@@ -47,21 +47,34 @@ final class Application
      * Application constructor.
      *
      * @param CanisterInterface|null $container
+     * @param bool $skip_bootstrap
      */
-    public function __construct(CanisterInterface $container = null)
+    public function __construct(CanisterInterface $container = null, $skip_bootstrap = false)
     {
         $this->container = $container ?? new Canister();
-        $this->bootstrap();
+
+        if(!$skip_bootstrap) {
+            $this->bootstrap();
+        }
     }
 
     /**
      * Setups container aliases & starch integration
+     * @param array $aliases
      */
-    public function bootstrap() : void
+    public function bootstrap(array $aliases = []) : void
     {
-        $this->container->alias(StackInterface::class, Stack::class);
-        $this->container->alias(InvokerInterface::class, Invoker::class);
-        $this->container->alias(EmitterInterface::class, SapiEmitter::class);
+        $default_aliases = [
+            StackInterface::class => Stack::class,
+            InvokerInterface::class => Invoker::class,
+            EmitterInterface::class => SapiEmitter::class
+        ];
+
+        //loop through aliases
+        $aliases = array_merge($default_aliases, $aliases);
+        foreach($aliases as $class => $alias) {
+            $this->container->alias($class, $alias);
+        }
 
         $this->router = $this->container->get(RouteContainer::class);
 
