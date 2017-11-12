@@ -7,7 +7,9 @@ use Mixten\Application;
 use function Mixten\cc;
 use Mixten\Invoker;
 use PHPUnit\Framework\TestCase;
+use Starch\Router\RouterMiddleware;
 use Tests\Fixtures\ApplicationActionFixture;
+use Tests\Fixtures\MiddlewareTest;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -38,6 +40,8 @@ class ApplicationTest extends TestCase
             return $resp;
         });
 
+        $app->add(RouterMiddleware::class);
+
         $request = ServerRequestFactory::fromGlobals([
             'REQUEST_METHOD' => 'GET',
             'REQUEST_URI' => '/example',
@@ -53,6 +57,8 @@ class ApplicationTest extends TestCase
         $app = new Application();
         $app->get('/example2', cc(ApplicationActionFixture::class, 'update'));
 
+        $app->add(RouterMiddleware::class);
+
         $request = ServerRequestFactory::fromGlobals([
             'REQUEST_METHOD' => 'GET',
             'REQUEST_URI' => '/example2',
@@ -61,5 +67,26 @@ class ApplicationTest extends TestCase
         $response = $app->run($request, true);
 
         $this->assertEquals('example', $response->getBody());
+    }
+
+    public function testApplicationMiddlewareWithNamedRoutes()
+    {
+        $app = new Application();
+
+        $app->add(RouterMiddleware::class);
+        $app->get('/example/{id}', cc(ApplicationActionFixture::class, 'update'))
+            ->add(MiddlewareTest::class)
+        ;
+
+        $request = ServerRequestFactory::fromGlobals([
+            'REQUEST_METHOD' => 'GET',
+            'REQUEST_URI' => '/example/2',
+        ]);
+
+        $response = $app->run($request, true);
+        echo $response->getBody();
+
+//        $this->assertEquals('Hello', $response->getBody());
+        $this->assertTrue(true);
     }
 }

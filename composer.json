@@ -4,7 +4,7 @@
   "require": {
     "php": "^7.1",
     "exts/canister": "1.0.0-beta8",
-    "starchphp/starch": "^0.2.0"
+    "starchphp/starch": "dev-master"
   },
   "require-dev": {
     "twig/twig": "^2.0",
@@ -18,5 +18,6 @@
     "files": [
       "functions.php"
     ]
-  }
+  },
+  "minimum-stability": "alpha"
 }
