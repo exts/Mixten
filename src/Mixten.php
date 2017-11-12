@@ -58,16 +58,27 @@ final class Mixten
      */
     protected $middleware = [];
 
+    /**
+     * Mixten constructor.
+     */
     public function __construct()
     {
         $this->builder = new ContainerBuilder();
     }
 
+    /**
+     * @return ContainerBuilder
+     */
     public function getBuilder()
     {
         return $this->builder;
     }
 
+    /**
+     * @param array $definitions
+     *
+     * @return void
+     */
     public function setDefaultDefinitions(array $definitions = [])
     {
         if(empty($this->default_definitions) && !empty($definitions)) {
@@ -75,12 +86,10 @@ final class Mixten
         }
     }
 
+    /**
+     * @return void
+     */
     public function buildContainer()
-    {
-        $this->container = $this->builder->build();
-    }
-
-    public function bootstrap()
     {
         $this->setDefaultDefinitions([
             EmitterInterface::class => autowire(SapiEmitter::class),
@@ -88,8 +97,22 @@ final class Mixten
             StackInterface::class => autowire(Stack::class),
         ]);
 
-        $this->buildContainer();
+        $this->container = $this->builder->build();
+    }
 
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @return void
+     */
+    public function bootstrap()
+    {
         //get router
         $this->router = $this->container->get(RouteContainer::class);
 
@@ -184,6 +207,12 @@ final class Mixten
         return $this->router->register($path, $callable, Methods::get(...$methods), $name, $middleware);
     }
 
+    /**
+     * @param ServerRequestInterface|null $request
+     * @param bool $return
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
     public function run(ServerRequestInterface $request = null, $return = false)
     {
         foreach($this->middleware as $middleware) {
