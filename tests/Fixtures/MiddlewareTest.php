@@ -11,7 +11,7 @@ class MiddlewareTest implements MiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $response = new Response();
-        $response->getBody()->write("Hello");
+        $response->getBody()->write("Hello World");
         return $response;
     }
 }

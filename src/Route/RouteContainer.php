@@ -120,7 +120,7 @@ class RouteContainer
 
             //check container for existing class and if the method exists
             list($class, $method) = explode("::", $callable);
-            if(!empty($method)) {
+            if(!empty($method) && $this->container->has($class)) {
                 $current = $this->container->get($class);
                 if(is_object($current) && method_exists($current, $method)) {
                     return [$current, $method];

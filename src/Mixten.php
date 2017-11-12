@@ -1,8 +1,6 @@
 <?php
 namespace Mixten;
 
-use Canister\Canister;
-use Canister\CanisterInterface;
 use function DI\autowire;
 use DI\Container;
 use DI\ContainerBuilder;
