@@ -104,9 +104,15 @@ class RouteContainer
         $callable = trim($callable);
 
         //check if there was any shared/factories or __invoke classes set first
-        $current = $this->container->get($callable);
-        if(is_callable($current)) {
-            return $current;
+//        $current = $this->container->get($callable);
+//        if(is_callable($current)) {
+//            return $current;
+//        }
+        if($this->container->has($callable)) {
+            $current = $this->container->get($callable);
+            if(is_callable($current)) {
+                return $current;
+            }
         }
 
         //check if we're calling 'class::method' string and seeing if we can resolve it

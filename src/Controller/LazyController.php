@@ -2,6 +2,7 @@
 namespace Mixten\Controller;
 
 use Canister\CanisterInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class LazyController
@@ -18,9 +19,9 @@ class LazyController
     /**
      * LazyController constructor.
      *
-     * @param CanisterInterface $container
+     * @param ContainerInterface $container
      */
-    public function __construct(CanisterInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
