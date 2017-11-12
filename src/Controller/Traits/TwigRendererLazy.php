@@ -10,7 +10,7 @@ use Zend\Diactoros\Response;
  *
  * @package Mixten\Controller\Traits
  */
-trait TwigRender
+trait TwigRendererLazy
 {
     /**
      * @param $template
@@ -19,7 +19,7 @@ trait TwigRender
      * @return ResponseInterface
      * @throws \Exception
      */
-    public function render($template, array $options)
+    public function render($template, array $options = [])
     {
         $render = $this->get(TwigRenderer::class);
         $response = new Response();
